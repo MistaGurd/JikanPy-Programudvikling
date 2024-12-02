@@ -1,1 +1,40 @@
-kivy
+WindowManager:
+    SearchWindow
+    ResultWindow
+
+
+<SearchWindow>:
+    name: 'Search'
+
+    BoxLayout:
+        orientation: 'vertical'
+        size: root.width, root.height
+
+        Label:
+            text: 'Genre'
+            font_size: 32
+
+        Button:
+            text: 'Søg genre'
+            font_size: 32
+            on_release:
+                app.root.current = 'Result'
+                root.manager.transition.direction = 'left'
+
+<ResultWindow>:
+    name: 'Result'
+
+    BoxLayout:
+        orientation: 'vertical'
+        size: root.width, root.height
+
+        Label:
+            text: 'Her er top 10 anime '
+            font_size: 32
+
+        Button:
+            text: 'Gå tilbage'
+            font_size: 32
+            on_release:
+                app.root.current = 'Search'
+                root.manager.transition.direction = 'right'

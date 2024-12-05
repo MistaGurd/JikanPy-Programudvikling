@@ -78,7 +78,7 @@ class ResultsScreen(Screen):
         root_layout = BoxLayout(orientation='vertical', spacing=10, padding=10)
 
         # Scrollable results layout
-        self.grid_layout = GridLayout(cols=2, padding=10, spacing=10, size_hint_y=None)
+        self.grid_layout = GridLayout(cols=5, padding=10, spacing=10, size_hint_y=None, row_default_height=300, row_force_default=True)
         self.grid_layout.bind(minimum_height=self.grid_layout.setter('height'))
 
         scroll_view = ScrollView(size_hint=(1, 0.9))
@@ -138,11 +138,13 @@ class ResultsScreen(Screen):
 # Main App
 class AnimeApp(App):
     def build(self):
+        from kivy.core.window import Window
+        from kivy.core.window import Window
+        Window.maximize()
         sm = ScreenManager()
         sm.add_widget(StartScreen(name='start'))
         sm.add_widget(ResultsScreen(name='results'))
         return sm
-
 
 if __name__ == "__main__":
     AnimeApp().run()

@@ -13,8 +13,6 @@ from kivy.core.window import Window
 
 import json
 
-
-# Predefined valid genres (matrix format: [genre_name, genre_id])
 VALID_GENRES = [
     ["action", 1],
     ["adventure", 2],
@@ -28,28 +26,23 @@ VALID_GENRES = [
     ["slice of life", 36],
 ]
 
-# Convert VALID_GENRES to a dictionary for quick ID lookup
 GENRE_LOOKUP = {genre[0]: genre[1] for genre in VALID_GENRES}
 
 
-# Screen for search
 class StartScreen(Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-        # Valid genres list for display in the search bar
         valid_genres_text = ", ".join([g[0] for g in VALID_GENRES])
 
         layout = BoxLayout(orientation='vertical', padding=10, spacing=10)
 
-        # Input field for anime genre with valid genres as placeholder text
         self.genre_input = TextInput(
             hint_text=f"Indtast animegenre (gyldige genrer: {valid_genres_text})",
             size_hint=(1, 0.2),
         )
         layout.add_widget(self.genre_input)
 
-        # Search Button
         search_button = Button(text="Søg", size_hint=(1, 0.2))
         search_button.bind(on_press=self.search_anime)
         layout.add_widget(search_button)
@@ -57,7 +50,6 @@ class StartScreen(Screen):
         self.add_widget(layout)
 
     def show_error_popup(self, message):
-        # Create a popup showing the error message
         popup = Popup(
             title="Inputfejl",
             content=Label(text=message),
@@ -66,7 +58,7 @@ class StartScreen(Screen):
         popup.open()
 
     def search_anime(self, instance):
-        genre = self.genre_input.text.strip().lower()  # Convert input to lowercase
+        genre = self.genre_input.text.strip().lower()
         if not genre:
             self.show_error_popup("Indtast venligst en genre!")
             return
@@ -78,22 +70,18 @@ class StartScreen(Screen):
             )
             return
 
-        # Switch to results screen and start API search
         self.manager.current = "results"
         self.manager.get_screen("results").fetch_anime(GENRE_LOOKUP[genre])
 
 
-# Screen for displaying results
 class ResultsScreen(Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
 
-        # Use BoxLayout for the overall layout
         root_layout = BoxLayout(orientation="vertical", spacing=10, padding=10)
 
-        # Scrollable results layout
         self.grid_layout = GridLayout(
-            cols=5,  # Set 5 columns
+            cols=5,
             padding=10,
             spacing=10,
             size_hint_y=None,
@@ -112,11 +100,10 @@ class ResultsScreen(Screen):
         self.add_widget(root_layout)
 
     def fetch_anime(self, genre_id):
-        self.grid_layout.clear_widgets()  # Clear previous results
+        self.grid_layout.clear_widgets()
         loading_label = Label(text="Indlæser...", size_hint_y=None, height=40)
         self.grid_layout.add_widget(loading_label)
 
-        # Fetch anime from API
         url = f"https://api.jikan.moe/v4/anime?genres={genre_id}&order_by=score&sort=desc&limit=10"
         UrlRequest(
             url,
@@ -130,18 +117,15 @@ class ResultsScreen(Screen):
         try:
             anime_list = result.get("data", [])
             for anime in anime_list:
-                # Create a vertical layout for each anime (image + title)
                 anime_box = BoxLayout(orientation="vertical", size_hint=(None, None))
 
-                # Anime Image
                 image_url = anime.get("images", {}).get("jpg", {}).get("image_url", "")
                 anime_image = AsyncImage(source=image_url, size_hint=(1, 0.8))
                 anime_image.size_hint_x = None
-                anime_image.width = Window.width / 5  # Dynamic width per column
-                anime_image.height = Window.height / 5  # Adjust height proportionally
+                anime_image.width = Window.width / 5
+                anime_image.height = Window.height / 5
                 anime_box.add_widget(anime_image)
 
-                # Anime Title
                 title = anime.get("title", "Ukendt Titel")
                 anime_label = Label(
                     text=title,
@@ -150,10 +134,9 @@ class ResultsScreen(Screen):
                     halign="center",
                     font_size="14sp",
                 )
-                anime_label.bind(size=anime_label.setter("text_size"))  # Allow text wrapping
+                anime_label.bind(size=anime_label.setter("text_size"))
                 anime_box.add_widget(anime_label)
 
-                # Add anime box to grid layout
                 anime_box.width = Window.width / 5
                 anime_box.height = Window.height / 4
                 self.grid_layout.add_widget(anime_box)
@@ -174,7 +157,7 @@ class ResultsScreen(Screen):
 # Main App
 class AnimeApp(App):
     def build(self):
-        Window.maximize()  # Maximize the window to utilize the full screen
+        Window.maximize()
         sm = ScreenManager()
         sm.add_widget(StartScreen(name="start"))
         sm.add_widget(ResultsScreen(name="results"))

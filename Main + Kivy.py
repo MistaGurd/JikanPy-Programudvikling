@@ -13,6 +13,7 @@ from kivy.core.window import Window
 
 import json
 
+
 # Predefined valid genres (matrix format: [genre_name, genre_id])
 VALID_GENRES = [
     ["action", 1],

@@ -108,7 +108,6 @@ class ResultsScreen(Screen):
         return anime_box
 
 
-
 class ErrorPopup(Popup):
     pass
 

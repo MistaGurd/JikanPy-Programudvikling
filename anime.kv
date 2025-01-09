@@ -1,0 +1,61 @@
+ScreenManager:
+    StartScreen:
+    ResultsScreen:
+
+<StartScreen>:
+    BoxLayout:
+        orientation: "vertical"
+        padding: 10
+        spacing: 10
+
+        TextInput:
+            id: genre_input
+            hint_text: "Indtast animegenre (gyldige genrer: action, adventure, comedy, drama, fantasy, horror, mystery, romance, sci-fi, slice of life)"
+            size_hint: (1, 0.2)
+
+        Button:
+            text: "Søg"
+            size_hint: (1, 0.2)
+            on_press: root.search_anime(genre_input.text)
+
+<ResultsScreen>:
+    BoxLayout:
+        orientation: "vertical"
+        spacing: 10
+        padding: 10
+
+        ScrollView:
+            size_hint: (1, 0.9)
+
+            GridLayout:
+                id: grid_layout
+                cols: 5
+                size_hint_y: None
+                row_default_height: 300
+                row_force_default: True
+                spacing: 10
+                padding: 10
+                height: self.minimum_height
+
+        Button:
+            text: "Tilbage"
+            size_hint: (1, 0.1)
+            on_press: app.root.current = "start"
+
+<ErrorPopup@Popup>:
+    title: "Inputfejl"
+    size_hint: 0.8, 0.6
+
+    BoxLayout:
+        orientation: "vertical"
+        spacing: 10
+        padding: 10
+
+        Label:
+            id: error_message
+            text: ""
+
+        Button:
+            text: "Luk"
+            size_hint_y: 0.2
+            on_press: root.dismiss()

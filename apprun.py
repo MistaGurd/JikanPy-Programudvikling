@@ -123,5 +123,3 @@ class AnimeApp(App):
 
 if __name__ == "__main__":
     AnimeApp().run()
-
-

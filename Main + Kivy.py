@@ -35,15 +35,19 @@ class StartScreen(Screen):
 
         valid_genres_text = ", ".join([g[0] for g in VALID_GENRES])
 
-        layout = BoxLayout(orientation='vertical', padding=10, spacing=10)
+        layout = BoxLayout(orientation='vertical', padding=20, spacing=20)
 
         self.genre_input = TextInput(
             hint_text=f"Indtast animegenre (gyldige genrer: {valid_genres_text})",
             size_hint=(1, 0.2),
+            background_color=(0.3,0.3,0.3,1),
+            foreground_color=(1,1,1,1),
+            hint_text_color=(0.8,0.8,0.8,1)
+
         )
         layout.add_widget(self.genre_input)
 
-        search_button = Button(text="Søg", size_hint=(1, 0.2))
+        search_button = Button(text="Søg", size_hint=(1, 0.2), background_color=(0.5,0.7,0.9,1), color=(1,1,1,1), font_size=18)
         search_button.bind(on_press=self.search_anime)
         layout.add_widget(search_button)
 
@@ -52,7 +56,7 @@ class StartScreen(Screen):
     def show_error_popup(self, message):
         popup = Popup(
             title="Inputfejl",
-            content=Label(text=message),
+            content=Label(text=message, color=(1,0,0,1)),
             size_hint=(0.8, 0.6),
         )
         popup.open()
@@ -93,7 +97,7 @@ class ResultsScreen(Screen):
         root_layout.add_widget(scroll_view)
 
         # Back Button at the bottom
-        back_button = Button(text="Tilbage", size_hint=(1, 0.1))
+        back_button = Button(text="Tilbage", size_hint=(1, 0.1), background_color=(0.5,0.7,0.9,1))
         back_button.bind(on_press=self.go_back)
         root_layout.add_widget(back_button)
 
@@ -130,6 +134,7 @@ class ResultsScreen(Screen):
                 anime_label = Label(
                     text=title,
                     size_hint=(1, 0.2),
+                    color=(1,1,1,1),
                     valign="middle",
                     halign="center",
                     font_size="14sp",

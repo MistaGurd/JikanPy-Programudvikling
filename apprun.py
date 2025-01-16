@@ -68,21 +68,22 @@ class ResultsScreen(Screen):
         # Hvis fejl, går koden mod api_error
 
     def display_results(self, request, result):
-        self.ids.grid_layout.clear_widgets()
+        self.ids.grid_layout.clear_widgets() # Starter med at rydde bordet
         try:
-            anime_list = result.get("data", [])
-            for anime in anime_list:
-                # Create a vertical layout for each anime (image + title)
-                image_url = anime.get("images", {}).get("jpg", {}).get("image_url", "")
-                title = anime.get("title", "Ukendt Titel")
+            anime_list = result.get("data", []) # Ny variabel som liste
+            for anime in anime_list: # For hver anime i listen
+                image_url = anime.get("images", {}).get("jpg", {}).get("image_url", "") # Tag billede-
+                title = anime.get("title", "Ukendt Titel") # og titel- ("Ukendt Titel" er en pre-defineret sætning, hvis der er fejl)
                 self.ids.grid_layout.add_widget(
                     self.create_anime_item(image_url, title)
                 )
-
+                # Og samle det i et grid_layout, med de betingelser,
+                # som bliver defineret i kv filen
             if not anime_list:
                 self.ids.grid_layout.add_widget(Label(text="Ingen resultater. Prøv en anden genre."))
         except Exception as e:
             self.ids.grid_layout.add_widget(Label(text=f"Fejl under indlæsning af resultater: {e}"))
+            # Fejlhåndtering, hvis en anime enten ikke er i listen, eller en datalæsefejl fra API
 
     def api_error(self, request, error):
         self.ids.grid_layout.clear_widgets()

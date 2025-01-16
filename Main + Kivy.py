@@ -47,7 +47,7 @@ class StartScreen(Screen):
         )
         layout.add_widget(self.genre_input)
 
-        search_button = Button(text="Søg", size_hint=(1, 0.2), background_color=(0.5,0.7,0.9,1), color=(1,1,1,1), font_size=18)
+        search_button = Button(text="Søg", size_hint=(1, 0.2), background_color=(0.5,0.7,0.9,1), color=(1,1,1,1), font_size=60)
         search_button.bind(on_press=self.search_anime)
         layout.add_widget(search_button)
 

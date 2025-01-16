@@ -49,12 +49,11 @@ class StartScreen(Screen):
 
 
 class ResultsScreen(Screen):
-    def fetch_anime(self, genre_id):
-        self.ids.grid_layout.clear_widgets()  # Clear previous results
-        self.ids.grid_layout.add_widget(Label(text="Indlæser...", size_hint_y=None, height=40))
+    def fetch_anime(self, genre_id): # Vores funktion, som finder data via API'en
+        self.ids.grid_layout.clear_widgets()  # Kalder på grid_layout i kv filen, og rydder den
+        self.ids.grid_layout.add_widget(Label(text="Indlæser...", size_hint_y=None, height=40)) # Kalder på grid_layout i kv filen, og tilføjer en loading label
 
-        # Fetch anime from API
-        url = f"https://api.jikan.moe/v4/anime?genres={genre_id}&order_by=score&sort=desc&limit=10"
+        url = f"https://api.jikan.moe/v4/anime?genres={genre_id}&order_by=score&sort=desc&limit=10" # Definerer API'ens URL som en variabel, hvor genre_id er
         UrlRequest(
             url,
             on_success=self.display_results,

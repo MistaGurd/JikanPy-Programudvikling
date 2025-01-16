@@ -1,3 +1,5 @@
+# Import af user interface elementer fra Kivy
+
 from kivy.app import App
 from kivy.uix.screenmanager import ScreenManager, Screen
 from kivy.uix.boxlayout import BoxLayout
@@ -13,6 +15,7 @@ from kivy.core.window import Window
 
 import json
 
+# Opretter et dictionary med genre og en value at kalde på
 VALID_GENRES = [
     ["action", 1],
     ["adventure", 2],

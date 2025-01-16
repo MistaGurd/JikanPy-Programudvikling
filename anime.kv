@@ -8,7 +8,7 @@ ScreenManager:
         padding: 10
         spacing: 10
 
-        TextInput:
+        TextInput: # Brugeren indtaster en genre i
             id: genre_input
             hint_text: "Indtast animegenre"
             background_color: (0.6,0,0,1)
@@ -23,7 +23,7 @@ ScreenManager:
             color: (1,1,1,1)
             font_size: 60
             size_hint: (1, 0.2)
-            on_press: root.search_anime(genre_input.text)
+            on_press: root.search_anime(genre_input.text) # on_press kalder på metoden search_anime i python file, som indholder tekst input
 
 <ResultsScreen>:
     BoxLayout:
@@ -52,7 +52,7 @@ ScreenManager:
             size_hint: (1, 0.1)
             on_press: app.root.current = "start"
 
-<ErrorPopup@Popup>:
+<ErrorPopup@Popup>: # Error pop up er defineret her i kivy filen
     title: "Inputfejl"
     size_hint: 0.8, 0.6
 
@@ -62,7 +62,7 @@ ScreenManager:
         padding: 10
 
         Label:
-            id: error_message
+            id: error_message # id som python kalder på for at indsætte det spekiffke tekst
             color: (1,0,0,1)
             text: ""
 

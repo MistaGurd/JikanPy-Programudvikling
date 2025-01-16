@@ -24,11 +24,11 @@ GENRE_LOOKUP = {genre[0]: genre[1] for genre in VALID_GENRES}
 
 
 class StartScreen(Screen):
-    def show_error_popup(self, message):
+    def show_error_popup(self, message): # Opret sit error pop up hvis der bliver indtastede en ugyldig genre
         # Reference the popup template in the .kv file
         popup = ErrorPopup()
-        popup.ids.error_message.text = message  # Set the dynamic message
-        popup.open()
+        popup.ids.error_message.text = message  # Beskeden indsættes i et dynamisk label-widget som har id: Error_message i pop up
+        popup.open() # Den del af koden som åbner error pop up
 
     def search_anime(self, genre_input):
         genre = genre_input.strip().lower()  # Convert input to lowercase

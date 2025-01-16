@@ -5,7 +5,7 @@ from kivy.core.window import Window
 from kivy.network.urlrequest import UrlRequest
 from kivy.uix.label import Label
 
-# Predefined valid genres (matrix format: [genre_name, genre_id])
+# Liste af genre, med en key (genrenavn) og en value (tal-ID)
 VALID_GENRES = [
     ["action", 1],
     ["adventure", 2],
@@ -19,7 +19,7 @@ VALID_GENRES = [
     ["slice of life", 36],
 ]
 
-# Convert VALID_GENRES to a dictionary for quick ID lookup
+# Konverterer VALID_GENRES til et dictionary
 GENRE_LOOKUP = {genre[0]: genre[1] for genre in VALID_GENRES}
 
 
@@ -53,13 +53,19 @@ class ResultsScreen(Screen):
         self.ids.grid_layout.clear_widgets()  # Kalder på grid_layout i kv filen, og rydder den
         self.ids.grid_layout.add_widget(Label(text="Indlæser...", size_hint_y=None, height=40)) # Kalder på grid_layout i kv filen, og tilføjer en loading label
 
-        url = f"https://api.jikan.moe/v4/anime?genres={genre_id}&order_by=score&sort=desc&limit=10" # Definerer API'ens URL som en variabel, hvor genre_id er
+        url = f"https://api.jikan.moe/v4/anime?genres={genre_id}&order_by=score&sort=desc&limit=10"
+        # Definerer API'ens URL som en variabel,
+        # hvor genre_id kommer frem GENRE_LOOKUP,
+        # som kommer fra listen VALID_GENRES
         UrlRequest(
             url,
             on_success=self.display_results,
             on_error=self.api_error,
             on_failure=self.api_error,
         )
+        # UrlRequest lader programmet køre videre når den har fetched data, hvor:
+        # Hvis succes, går koden videre til display_results
+        # Hvis fejl, går koden mod api_error
 
     def display_results(self, request, result):
         self.ids.grid_layout.clear_widgets()
@@ -81,6 +87,7 @@ class ResultsScreen(Screen):
     def api_error(self, request, error):
         self.ids.grid_layout.clear_widgets()
         self.ids.grid_layout.add_widget(Label(text=f"API-fejl: {error}"))
+        # Hvis der er fejl i API'en, vil fetch_anime kalde på denne funktion, som viser en error textlabel
 
     def create_anime_item(self, image_url, title):
         from kivy.uix.boxlayout import BoxLayout
@@ -109,7 +116,7 @@ class ResultsScreen(Screen):
 
 class ErrorPopup(Popup):
     pass
-
+    # Error screen, som bliver håndteret af Kivy i kv filen
 
 class AnimeApp(App):
     def build(self):
@@ -122,3 +129,4 @@ class AnimeApp(App):
 
 if __name__ == "__main__":
     AnimeApp().run()
+    # Start programmet!

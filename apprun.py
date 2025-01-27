@@ -97,11 +97,9 @@ class ResultsScreen(Screen):
 
         anime_box = BoxLayout(orientation="vertical", size_hint_y=None, height=300)
 
-        # Anime Image
         anime_image = AsyncImage(source=image_url, size_hint=(1, 0.8))
         anime_box.add_widget(anime_image)
 
-        # Anime Title
         anime_label = Label(
             text=title,
             size_hint=(1, 0.2),
@@ -121,8 +119,8 @@ class ErrorPopup(Popup):
 
 class AnimeApp(App):
     def build(self):
-        Window.maximize()  # Maximize the window to utilize the full screen
-        sm = ScreenManager()
+        Window.maximize()  # Får programmet til at åbne i Windowded borderless
+        sm = ScreenManager() # Variabel for håndtering af start-skærm, og resultatskærm
         sm.add_widget(StartScreen(name="start"))
         sm.add_widget(ResultsScreen(name="results"))
         return sm

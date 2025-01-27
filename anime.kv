@@ -1,21 +1,21 @@
 ScreenManager:
-    StartScreen:
-    ResultsScreen:
+    StartScreen: # Skærmen hvori forbrugeren kan indput en anime genre
+    ResultsScreen: # Skærmen der displayer anime resultater
 
 <StartScreen>:
-    BoxLayout:
-        orientation: "vertical"
-        padding: 10
-        spacing: 10
+    BoxLayout: # Forældre widget der laver layoutet af programmet
+        orientation: "vertical" # Arrangerer child widgets vertikalt
+        padding: 30 # Står for hvor meget plads der er omkring kanterne af layoutet
+        spacing: 20 # Står for hvor meget plads der er imellem child widgets
 
         TextInput: # Brugeren indtaster en genre i
             id: genre_input
-            hint_text: "Indtast animegenre"
-            background_color: (0.6,0,0,1)
-            foreground_color: (1,1,1,1) #for texten til at forblive hvid sammen med koden for hint_text_color
-            hint_text_color: (0.8,0.8,0.8,1) #arbejder sammen med foreground color til at få texten til at forblive hvid
-            font_size: 60
-            size_hint: (1, 0.2)
+            hint_text: "Indtast animegenre" # Pladsholder tekst indtil indput intastes
+            background_color: (0.6,0,0,1) # Farvekode som bruges i form af RGBA værdier fra 0 til 1
+            foreground_color: (1,1,1,1)
+            hint_text_color: (0.8,0.8,0.8,1)
+            font_size: 60 # Størrelsen af teksten i programmet
+            size_hint: (1, 0.2) # fortæller programmet hvor stor child widgeten skal være i forhold til forældre widgeten
 
         Button:
             text: "Søg"
@@ -31,18 +31,18 @@ ScreenManager:
         spacing: 10
         padding: 10
 
-        ScrollView:
+        ScrollView: # Et child widget der gør det muligt at kunne scroll igennem sine anime resultater
             size_hint: (1, 0.9)
 
             GridLayout:
                 id: grid_layout
-                cols: 5
+                cols: 5 # Styrer hvor mange mængde columns der må være for anime
                 size_hint_y: None
-                row_default_height: 300
-                row_force_default: True
+                row_default_height: 300 # row_default_height står for standardhøjden af hver række
+                row_force_default: True # row_force_default tvinger alle rækker til at have samme højde
                 spacing: 10
                 padding: 10
-                height: self.minimum_height
+                height: self.minimum_height # Sætter højden af gridlayoutet til at være minimum for at passe alle elementer
 
         Button:
             text: "Tilbage"
@@ -50,7 +50,7 @@ ScreenManager:
             color: (1,1,1,1)
             font_size: 40
             size_hint: (1, 0.1)
-            on_press: app.root.current = "start"
+            on_press: app.root.current = "start" # on_press kalder på class_StartScreen for at komme tilbage til startskærmen
 
 <ErrorPopup@Popup>: # Error pop up er defineret her i kivy filen
     title: "Inputfejl"
@@ -69,4 +69,4 @@ ScreenManager:
         Button:
             text: "Luk"
             size_hint_y: 0.2
-            on_press: root.dismiss()
+            on_press: root.dismiss() # on_press Lukker popup vinduet når det trykkes

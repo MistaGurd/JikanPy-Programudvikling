@@ -94,11 +94,15 @@ class ResultsScreen(Screen):
         from kivy.uix.boxlayout import BoxLayout
         from kivy.uix.image import AsyncImage
         from kivy.uix.label import Label
+        # ^Diverse imports fra Kivy
 
         anime_box = BoxLayout(orientation="vertical", size_hint_y=None, height=300)
+        # Template til coverbillede
 
         anime_image = AsyncImage(source=image_url, size_hint=(1, 0.8))
         anime_box.add_widget(anime_image)
+        # AsyncImage lader programmet køre også selvom at alle coverbilleder ikke er færdig med at blive imported
+        # For hvert coverbillede, bliver det tilføjet i det predefineret BoxLayout
 
         anime_label = Label(
             text=title,
@@ -107,8 +111,9 @@ class ResultsScreen(Screen):
             halign="center",
             font_size="14sp",
         )
-        anime_label.bind(size=anime_label.setter("text_size"))  # Allow text wrapping
-        anime_box.add_widget(anime_label)
+        # Template til håndtering af titel
+        anime_label.bind(size=anime_label.setter("text_size")) # Forbinder label med size via "bind"
+        anime_box.add_widget(anime_label) # Tilføj til BoxLayout
 
         return anime_box
 

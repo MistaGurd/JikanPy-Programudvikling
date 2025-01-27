@@ -75,7 +75,7 @@ class ResultsScreen(Screen):
                 image_url = anime.get("images", {}).get("jpg", {}).get("image_url", "") # Tag billede-
                 title = anime.get("title", "Ukendt Titel") # og titel- ("Ukendt Titel" er en pre-defineret sætning, hvis der er fejl)
                 self.ids.grid_layout.add_widget(
-                    self.create_anime_item(image_url, title)
+                    self.create_anime_item(image_url, title) #Tilføjer et dynamisk genereret layout (med billede og titel) til grid_layout i GUI'en, så det vises for brugeren
                 )
                 # Og samle det i et grid_layout, med de betingelser,
                 # som bliver defineret i kv filen
